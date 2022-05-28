@@ -1,0 +1,26 @@
+.blogSectionRow {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+	align-items: center;
+	flex-wrap: wrap;
+	width: 100%;
+}
+@media (max-width: 840px) {
+	.blogSectionRow {
+		flex-wrap: wrap;
+	}
+}
+.teamSectionRow {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+	align-items: center;
+	flex-wrap: wrap;
+	width: 100%;
+}
+@media (max-width: 840px) {
+	.teamSectionRow {
+		flex-wrap: wrap;
+	}
+}
