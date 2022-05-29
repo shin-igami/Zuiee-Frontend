@@ -3,6 +3,9 @@ import PropTypes from "prop-types";
 import classNames from "classnames";
 import { Link } from "react-router-dom";
 import Logo from "./partials/Logo";
+import Login from "../login";
+import {gapi} from 'gapi-script'
+import Logout from "../Logout";
 // import Logo from "../../assets/ZuieeLogo.svg";
 
 const propTypes = {
@@ -20,7 +23,7 @@ const defaultProps = {
 	bottomOuterDivider: false,
 	bottomDivider: false,
 };
-
+const clientId = "266472049487-7vsuprhinvbqa2iubr5i3164tckkt3er.apps.googleusercontent.com"
 const Header = ({
 	className,
 	navPosition,
@@ -47,7 +50,15 @@ const Header = ({
 			closeMenu();
 		};
 	});
-
+	useEffect(() => {
+		function start(){
+			gapi.client.init({
+				clientId:clientId,
+				scope:""
+			})
+		};
+		gapi.load('client:auth2',start)
+	   });
 	const openMenu = () => {
 		document.body.classList.add("off-nav-is-active");
 		nav.current.style.maxHeight = nav.current.scrollHeight + "px";
@@ -58,6 +69,12 @@ const Header = ({
 		document.body.classList.remove("off-nav-is-active");
 		nav.current && (nav.current.style.maxHeight = null);
 		setIsactive(false);
+		fetch("/login").then(
+			res => res.json()
+		).catch(
+			error => console.log(error)
+			
+		)
 	};
 
 	const keyPress = e => {
@@ -101,10 +118,10 @@ const Header = ({
 											<li>
 												<Link
 													to={link}
-													className="button button-primary button-wide-mobile button-sm"
+													
 													onClick={closeMenu}
 												>
-													{btnText}
+												{btnText=='Login'?<Login/>:<Logout/>}
 												</Link>
 											</li>
 										</ul>
